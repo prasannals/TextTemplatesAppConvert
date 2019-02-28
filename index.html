@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <script type="text/javascript">
+    function submitClicked() {
+      var inp = document.getElementById("exportedTextInp").value;
+      var tts = JSON.parse(inp);
+      tts.plainTextTemplates = tts.plainTextTemplates.map((t) => {
+          if (t.appName === 'Hangouts')
+              t.appName = 'Skype'
+          if (t.packageName === 'com.google.android.talk')
+              t.packageName = 'com.skype.raider'
+          return t;
+      });
+      document.getElementById("outJson").innerHTML = JSON.stringify(tts);
+    }
+  </script>
+  <head>
+    <meta charset="utf-8">
+    <title>Text Templates App Converter</title>
+  </head>
+  <body>
+    Enter the exported text templates text below. (Copy and paste it below) <br />
+    <input type="text" name="exportedTextInp" id="exportedTextInp" value="" style="width: 600px;" ><br /><br />
+    <input id="submitButton" type="button" value="Submit" onclick="submitClicked();" />
+    <br /> <br />
+
+    <p>Copy the output below and import it into text templates after clicking submit</p>
+    <code id='outJson'>
+      
+    </code>
+  </body>
+</html>
