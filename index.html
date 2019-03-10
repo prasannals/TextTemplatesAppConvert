@@ -4,11 +4,16 @@
     function submitClicked() {
       var inp = document.getElementById("exportedTextInp").value;
       var tts = JSON.parse(inp);
+      var inAppName = document.getElementById("appNameInp").value;
+      var outAppName = document.getElementById("outAppNameInp").value;
+      var inAppId = document.getElementById("appIdInp").value;
+      var outAppId = document.getElementById("outAppIdInp").value;
+
       tts.plainTextTemplates = tts.plainTextTemplates.map((t) => {
-          if (t.appName === 'Hangouts')
-              t.appName = 'Skype'
-          if (t.packageName === 'com.google.android.talk')
-              t.packageName = 'com.skype.raider'
+          if (t.appName === inAppName)
+              t.appName = outAppName
+          if (t.packageName === inAppId)
+              t.packageName = outAppId
           return t;
       });
       document.getElementById("outJson").innerHTML = JSON.stringify(tts);
@@ -21,12 +26,17 @@
   <body>
     Enter the exported text templates text below. (Copy and paste it below) <br />
     <input type="text" name="exportedTextInp" id="exportedTextInp" value="" style="width: 600px;" ><br /><br />
+    Enter the app name :
+    <input type="text" name="appNameInp" id="appNameInp" value="Hangouts"  ><br /><br />
+    Enter the app id : <input type="text" name="appIdInp" id="appIdInp" value="com.google.android.talk"  style="width: 400px;"><br /><br />
+    Enter the output app name : <input type="text" name="outAppNameInp" id="outAppNameInp" value="Skype" ><br /><br />
+    Enter the ouput app id : <input type="text" name="outAppIdInp" id="outAppIdInp" value="com.skype.raider"  style="width: 400px;"><br /><br />
     <input id="submitButton" type="button" value="Submit" onclick="submitClicked();" />
     <br /> <br />
 
     <p>Copy the output below and import it into text templates after clicking submit</p>
     <code id='outJson'>
-      
+
     </code>
   </body>
 </html>
